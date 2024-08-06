@@ -1,0 +1,75 @@
+<%- include("../layouts/header.ejs") -%>
+
+<div class="container mt-5">
+    <h1 class="text-center">Dashboard</h1>
+    
+
+    <!-- ... (existing content) --><br><br>
+    <div class="container mt-4">
+        <label for="searchInput" class="form-label">Search user by Name:</label>
+        <input type="text" id="searchInput" class="form-control form-control-lg" placeholder="Enter name">
+      </div><br><br>
+    
+    
+    <br><br><br>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Mobile</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody">
+                <% if (users.length > 0) { %>
+                    <% for (let i = 0; i < users.length; i++) { %>
+                        <tr>
+                            <td><%= users[i].name %></td>
+                            <td><%= users[i].email %></td>
+                            <td><%= users[i].mobile %></td>
+                            <td>
+                                <input type="hidden" name="id" value="<%= users[i]._id %>">
+                                <a href="/admin/edit-user?id=<%= users[i]._id %>"><button>edit</button></a>
+                                <a href="/admin/delete-user?id=<%= users[i]._id %>" onclick="return confirmDelete();"><button>Delete</button></a>
+                            </td>
+                        </tr>
+                    <% } %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4" class="text-center">Users Not Found</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+        
+    </div> 
+    <a href="/admin/new-user"><button>Add New User</button></a>
+    <div class="text-center mt-3">
+        <a href='/admin/logout' class="btn btn-primary">Logout</a>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this user?");
+    }
+
+
+
+
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('tbody tr');
+  
+    searchInput.addEventListener('input', function () {
+      const searchTerm = searchInput.value.toLowerCase();
+  
+      tableRows.forEach(row => {
+        const userName = row.querySelector('td:nth-child(1)').textContent.toLowerCase();
+        row.style.display = userName.includes(searchTerm) ? '' : 'none';
+      });
+    });
+
+    </script>
+<%- include("../layouts/footer.ejs") -%>
+

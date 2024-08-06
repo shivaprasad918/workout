@@ -1,0 +1,45 @@
+<%- include('../layouts/header.ejs') -%>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center">Login</h1>
+
+                    <%
+                    if(typeof message !== 'undefined'){
+                    %>
+                        <h4 class="text-center"><%= message %></h4>
+                    <%
+                    }
+                    %>
+
+                    <form action="/login" method="POST">
+                        <div class="mb-3">
+                            <input type="email" name="email" required class="form-control" placeholder="Enter Email" id="email">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="password" name="password" required class="form-control" placeholder="Enter Password">
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <a href="/register">Don't havae an account?</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    
+</script>
+
+<%- include('../layouts/footer.ejs') -%>
+
+
+
+

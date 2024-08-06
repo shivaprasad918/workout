@@ -1,0 +1,76 @@
+<%- include("../layouts/header.ejs") -%>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h1 class="text-center mb-4">Edit User</h1>
+
+                    <form id="updateUserForm" action="/admin/updateUser" method="post" onsubmit="return validateForm()">
+                        <div class="mb-3">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" value="<%= user.name %>" required>
+                            <span id="nameError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" value="<%= user.email %>" required>
+                            <span id="emailError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="mno" id="mno" class="form-control" placeholder="Enter Mobile" value="<%= user.mobile %>" required>
+                            <span id="mnoError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value="<%= user._id %>">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <input type="submit" value="Update User">
+                        </div>
+                    
+                        <div class="text-center">
+                            <form action="/admin/dashboard" method="get">
+                                <button class="btn btn-dark">Go Dashboard</button>
+                            </form>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var mno = document.getElementById('mno').value;
+
+        // Basic validation for name
+        if (name.trim() === "") {
+            document.getElementById('nameError').innerText = 'Name cannot be empty';
+            return false;
+        } else {
+            document.getElementById('nameError').innerText = '';
+        }
+
+        // Basic validation for email
+        if (email.trim() === "") {
+            document.getElementById('emailError').innerText = 'Email cannot be empty';
+            return false;
+        } else {
+            document.getElementById('emailError').innerText = '';
+        }
+
+        // Basic validation for mobile number
+        if (mno.trim() === "") {
+            document.getElementById('mnoError').innerText = 'Mobile number cannot be empty';
+            return false;
+        } else {
+            document.getElementById('mnoError').innerText = '';
+        }
+
+        return true;
+    }
+</script>
+<%- include("../layouts/footer.ejs") %>

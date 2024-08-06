@@ -1,0 +1,92 @@
+<%- include('../layouts/header.ejs') -%>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="text-center">Add New User</h1>
+
+                    <form id="newUserForm" action="/admin/new-user" method="post" onsubmit="return validateForm()">
+                        <div class="mb-3">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" required>
+                            <span id="nameError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Enter Email" required>
+                            <span id="emailError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="text" name="mno" id="mno" class="form-control" placeholder="Enter Mobile" required>
+                            <span id="mnoError" style="color: red;"></span>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" required>
+                            <span id="passwordError" style="color: red;"></span>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Add User</button>
+                        </div>
+                    </form>
+                    
+
+                    <%
+                    if(typeof message !== 'undefined'){
+                    %>
+                        <p style="color: red;"><%= message %></p>
+                    <%
+                    }
+                    %>
+                    <a href="/admin/dashboard"><button>Go Back</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function validateForm() {
+        var name = document.getElementById('name').value;
+        var email = document.getElementById('email').value;
+        var mno = document.getElementById('mno').value;
+        var password = document.getElementById('password').value;
+
+        // Basic validation for name
+        if (name.trim() === "") {
+            document.getElementById('nameError').innerText = 'Name cannot be empty';
+            return false;
+        } else {
+            document.getElementById('nameError').innerText = '';
+        }
+
+        // Basic validation for email
+        if (email.trim() === "") {
+            document.getElementById('emailError').innerText = 'Email cannot be empty';
+            return false;
+        } else {
+            document.getElementById('emailError').innerText = '';
+        }
+
+        // Basic validation for mobile number
+        if (mno.trim() === "") {
+    document.getElementById('mnoError').innerText = 'Mobile number cannot be empty';
+    return false;
+} else if (!/^\d{10}$/.test(mno.trim())) {
+    document.getElementById('mnoError').innerText = 'Invalid mobile number format';
+    return false;
+} else {
+    document.getElementById('mnoError').innerText = '';
+}
+
+        // Basic validation for password
+        if (password.trim() === "") {
+            document.getElementById('passwordError').innerText = 'Password cannot be empty';
+            return false;
+        } else {
+            document.getElementById('passwordError').innerText = '';
+        }
+
+        return true;
+    }
+</script>
+<%- include('../layouts/footer.ejs') -%>
